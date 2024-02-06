@@ -1,38 +1,30 @@
 import java.util.Scanner;
 
 public class RewardValue {
-    private double cashValue;
-    private double milesValue;
+    private final double cashValue;
+    public static final double MILES_TO_CASH_CONVERSION_RATE = 0.0035;
 
-    // Constructor accepting cash value
     public RewardValue(double cashValue) {
         this.cashValue = cashValue;
-        this.milesValue = convertToMiles(cashValue);
     }
 
-    // Constructor accepting miles value
-    public RewardValue(double milesValue, boolean isMiles) {
-        this.milesValue = milesValue;
+    public RewardValue(int milesValue) {
         this.cashValue = convertToCash(milesValue);
     }
 
-    // Getter method for cash value
+    private static int convertToMiles(double cashValue) {
+        return (int) (cashValue / MILES_TO_CASH_CONVERSION_RATE);
+    }
+
+    private static double convertToCash(int milesValue) {
+        return milesValue * MILES_TO_CASH_CONVERSION_RATE;
+    }
+
     public double getCashValue() {
         return cashValue;
     }
 
-    // Getter method for miles value
-    public double getMilesValue() {
-        return milesValue;
-    }
-
-    // Conversion method: cash to miles
-    private double convertToMiles(double cashValue) {
-        return cashValue / 0.0035;
-    }
-
-    // Conversion method: miles to cash
-    private double convertToCash(double milesValue) {
-        return milesValue * 0.0035;
+    public int getMilesValue() {
+        return convertToMiles(this.cashValue);
     }
 }
